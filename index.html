@@ -81,9 +81,9 @@ function generateNumbers(){
     numbers.sort((a,b)=>a-b);
 
     document.getElementById("numbers").innerHTML=
-        numbers.join(" , ");
+    numbers.join(" , ") + "<br><br>祝你好運 🍀";
 
-    let speakText="幸運號碼係 " + numbers.join(" , ");
+    let speakText="幸運號碼係。 " + numbers.join(" , ") + "。祝你好運。";
 
     let speech=new SpeechSynthesisUtterance(speakText);
 
