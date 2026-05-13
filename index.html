@@ -140,7 +140,7 @@ function generateNumbers(){
   if(currentMode=="uk"){
     let numbers=pickNumbers(6,59);
     displayText=numbers.join(" , ");
-    speakText="UK Lotto 幸運號碼係 " + numbers.join(" , ") + "。祝你好運。";
+    speakText="U K Lotto 幸運號碼係 " + numbers.join(" , ") + "。祝你好運。";
     copyText="UK Lotto: " + numbers.join(", ");
   }
 
@@ -149,7 +149,7 @@ function generateNumbers(){
     let stars=pickNumbers(2,12);
 
     displayText=numbers.join(" , ") + "<br><span style='font-size:32px'>⭐ " + stars.join(" , ") + "</span>";
-    speakText="EuroMillions 幸運號碼係 " + numbers.join(" , ") + "。Lucky Stars 係 " + stars.join(" , ") + "。祝你好運。";
+    speakText="Euro Millions 幸運號碼係 " + numbers.join(" , ") + "。Lucky  Stars 係 " + stars.join(" , ") + "。祝你好運。";
     copyText="EuroMillions: " + numbers.join(", ") + " | Stars: " + stars.join(", ");
   }
 
