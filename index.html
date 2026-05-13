@@ -10,7 +10,7 @@ body{
     margin:0;
     font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
     background:linear-gradient(135deg,#ffcc70,#ff8177);
-    color:#ffd700;
+    color:#white;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -37,8 +37,8 @@ button{
     background:white;
     color:#ff5f6d;
     border:none;
-    padding:16px 30px;
-    font-size:22px;
+    padding:20px 36px;
+    font-size:26px;
     border-radius:20px;
     cursor:pointer;
     font-weight:bold;
@@ -81,7 +81,7 @@ function generateNumbers(){
     numbers.sort((a,b)=>a-b);
 
     document.getElementById("numbers").innerHTML=
-    numbers.join(" , ") + "<br><br>祝你好運 🍀";
+    numbers.join(" , ") + "<br><br><span style='color:#f6c453'>✨祝你好運 ✨</span>";
 
     let speakText="幸運號碼係 " + numbers.join(" , ") + "。 祝你好運。";
 
