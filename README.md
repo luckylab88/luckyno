@@ -1,2 +1,2 @@
-# UKLlucky-number-generator
+# lucky-number-generator
 Lucky number generator
