@@ -118,35 +118,63 @@ function setMode(mode){
     document.getElementById("hkBtn").classList.add("activeMode");
   }
 }
+function pickNumbers(count, max){
+  let numbers=[];
+
+  while(numbers.length<count){
+    let n=Math.floor(Math.random()*max)+1;
+    if(!numbers.includes(n)){
+      numbers.push(n);
+    }
+  }
+
+  return numbers.sort((a,b)=>a-b);
+}
+
 function generateNumbers(){
 
-    let numbers=[];
+  let displayText="";
+  let speakText="";
+  let copyText="";
 
-    while(numbers.length<6){
+  if(currentMode=="uk"){
+    let numbers=pickNumbers(6,59);
+    displayText=numbers.join(" , ");
+    speakText="UK Lotto 幸運號碼係 " + numbers.join(" , ") + "。祝你好運。";
+    copyText="UK Lotto: " + numbers.join(", ");
+  }
 
-        let n=Math.floor(Math.random()*59)+1;
+  if(currentMode=="eu"){
+    let numbers=pickNumbers(5,50);
+    let stars=pickNumbers(2,12);
 
-        if(!numbers.includes(n)){
-            numbers.push(n);
-        }
+    displayText=numbers.join(" , ") + "<br><span style='font-size:32px'>⭐ " + stars.join(" , ") + "</span>";
+    speakText="EuroMillions 幸運號碼係 " + numbers.join(" , ") + "。Lucky Stars 係 " + stars.join(" , ") + "。祝你好運。";
+    copyText="EuroMillions: " + numbers.join(", ") + " | Stars: " + stars.join(", ");
+  }
+
+  if(currentMode=="hk"){
+    let numbers=pickNumbers(6,49);
+    let special=pickNumbers(1,49)[0];
+
+    while(numbers.includes(special)){
+      special=pickNumbers(1,49)[0];
     }
 
-    numbers.sort((a,b)=>a-b);
+    displayText=numbers.join(" , ") + "<br><span style='font-size:32px'>特別號：" + special + "</span>";
+    speakText="六合彩幸運號碼係 " + numbers.join(" , ") + "。特別號係 " + special + "。祝你好運。";
+    copyText="六合彩: " + numbers.join(", ") + " | 特別號: " + special;
+  }
 
-    document.getElementById("numbers").innerHTML=
-    numbers.join(" , ") + "<br><br><span style='color:#ffd700'>✨祝你好運 ✨</span>";
+  document.getElementById("numbers").innerHTML=
+    displayText + "<br><br><span style='color:#ffd700'>✨祝你好運 ✨</span>";
 
-    let speakText="幸運號碼係 " + numbers.join(" , ") + "。 祝你好運。";
+  navigator.clipboard.writeText(copyText);
 
-    let speech=new SpeechSynthesisUtterance(speakText);
-
-    speech.lang="zh-HK";
-
-    speech.rate=1.1;
-
-    navigator.clipboard.writeText(numbers.join(", "));
-    
-    speechSynthesis.speak(speech);
+  let speech=new SpeechSynthesisUtterance(speakText);
+  speech.lang="zh-HK";
+  speech.rate=1.1;
+  speechSynthesis.speak(speech);
 }
 </script>
 
