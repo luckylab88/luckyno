@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Number</title>
+
+<style>
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+    background:linear-gradient(135deg,#ffcc70,#ff8177);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+}
+
+.container{
+    padding:30px;
+}
+
+h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.numbers{
+    font-size:48px;
+    font-weight:bold;
+    margin:30px 0;
+}
+
+button{
+    background:white;
+    color:#ff5f6d;
+    border:none;
+    padding:16px 30px;
+    font-size:22px;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🍀 幸運號碼 🍀</h1>
+
+    <div class="numbers" id="numbers">
+        --
+    </div>
+
+    <button onclick="generateNumbers()">
+        抽幸運號碼
+    </button>
+</div>
+
+<script>
+function generateNumbers(){
+
+    let numbers=[];
+
+    while(numbers.length<6){
+
+        let n=Math.floor(Math.random()*59)+1;
+
+        if(!numbers.includes(n)){
+            numbers.push(n);
+        }
+    }
+
+    numbers.sort((a,b)=>a-b);
+
+    document.getElementById("numbers").innerHTML=
+        numbers.join(" , ");
+
+    let speakText="幸運號碼係 " + numbers.join(" , ");
+
+    let speech=new SpeechSynthesisUtterance(speakText);
+
+    speech.lang="zh-HK";
+
+    speech.rate=0.9;
+
+    speechSynthesis.speak(speech);
+}
+</script>
+
+</body>
+</html>
