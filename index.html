@@ -45,6 +45,27 @@ button{
     animation:pulse 2s infinite;
 }
 
+    .modes{
+  margin:20px 0;
+}
+
+.modes button{
+  margin:6px;
+  padding:12px 18px;
+  font-size:18px;
+  border-radius:14px;
+  border:none;
+  background:rgba(255,255,255,0.2);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  animation:none;
+}
+
+.activeMode{
+  background:white !important;
+  color:#ff5f6d !important;
+}
 button:hover{
     opacity:0.9;
     }
@@ -63,13 +84,40 @@ button:hover{
 
     <div class="numbers" id="numbers">
     </div>
-
+    
+<div class="modes">
+  <button onclick="setMode('uk')" id="ukBtn">UK Lotto</button>
+  <button onclick="setMode('eu')" id="euBtn">EuroMillions</button>
+  <button onclick="setMode('hk')" id="hkBtn">六合彩</button>
+</div>
     <button onclick="generateNumbers()">
         抽幸運號碼
     </button>
 </div>
 
 <script>
+    let currentMode = "uk";
+
+function setMode(mode){
+
+  currentMode = mode;
+
+  document.getElementById("ukBtn").classList.remove("activeMode");
+  document.getElementById("euBtn").classList.remove("activeMode");
+  document.getElementById("hkBtn").classList.remove("activeMode");
+
+  if(mode=="uk"){
+    document.getElementById("ukBtn").classList.add("activeMode");
+  }
+
+  if(mode=="eu"){
+    document.getElementById("euBtn").classList.add("activeMode");
+  }
+
+  if(mode=="hk"){
+    document.getElementById("hkBtn").classList.add("activeMode");
+  }
+}
 function generateNumbers(){
 
     let numbers=[];
