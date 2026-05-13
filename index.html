@@ -42,21 +42,26 @@ button{
     border-radius:20px;
     cursor:pointer;
     font-weight:bold;
+    animation:pulse 2s infinite;
 }
 
 button:hover{
     opacity:0.9;
+    }
+    @keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
 }
 </style>
 </head>
 
-<body onload="generateNumbers()">
+<body>
 
 <div class="container">
     <h1>🍀 幸運號碼 🍀</h1>
 
     <div class="numbers" id="numbers">
-        --
     </div>
 
     <button onclick="generateNumbers()">
