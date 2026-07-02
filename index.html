@@ -24,20 +24,21 @@ body{
 
 h1{
     font-size:42px;
-    margin-bottom:20px;
+    margin-bottom:14px;
 }
 
 .numbers{
     font-size:48px;
     font-weight:bold;
-    margin:30px 0;
+    margin:24px 0 18px;
+    line-height:1.35;
 }
 
 button{
     background:white;
     color:#ff5f6d;
     border:none;
-    padding:20px 36px;
+    padding:18px 34px;
     font-size:26px;
     border-radius:20px;
     cursor:pointer;
@@ -46,7 +47,7 @@ button{
 }
 
     .modes{
-  margin:20px 0;
+  margin:16px 0 14px;
 }
 
 .modes button{
@@ -65,6 +66,22 @@ button{
 .activeMode{
   background:white !important;
   color:#ff5f6d !important;
+}
+
+.special-toggle{
+  margin-top:14px;
+  padding:8px 12px;
+  font-size:18px;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,0.9);
+  font-weight:bold;
+  cursor:pointer;
+  animation:none;
+}
+
+.special-toggle:hover{
+  opacity:0.75;
 }
 button:hover{
     opacity:0.9;
@@ -131,19 +148,45 @@ function pickNumbers(count, max){
   return numbers.sort((a,b)=>a-b);
 }
 
+let lastHkNumbers=[];
+let lastHkSpecial=null;
+let specialVisible=false;
+
+function toggleSpecial(){
+  let specialArea=document.getElementById("specialArea");
+  let specialToggle=document.getElementById("specialToggle");
+
+  if(!specialArea || !specialToggle){
+    return;
+  }
+
+  specialVisible=!specialVisible;
+
+  if(specialVisible){
+    specialArea.style.display="block";
+    specialToggle.innerHTML="▲ 隱藏特別號";
+    navigator.clipboard.writeText("🇭🇰 六合彩\n正選: " + lastHkNumbers.join(", ") + "\n特別號: " + lastHkSpecial);
+  }else{
+    specialArea.style.display="none";
+    specialToggle.innerHTML="▼ 顯示特別號（複式參考）";
+    navigator.clipboard.writeText("🇭🇰 六合彩\n正選: " + lastHkNumbers.join(", "));
+  }
+}
+
 function generateNumbers(){
 
   let displayText="";
   let speakText="";
   let copyText="";
   let wish="✨祝你好運 ✨";
+  let wishStyle="color:#ffd700;font-size:26px;font-weight:bold;font-style:italic";
 
   if(currentMode=="uk"){
     let numbers=pickNumbers(6,59);
     displayText=numbers.join(" , ");
     speakText="U K Lotto，幸運號碼係 " + numbers.join(" , ") + "。祝你好運。";
     copyText="🇬🇧 UK Lotto\nNumbers: " + numbers.join(", ");
-    wish="✨ Good Luck ✨";
+    wish="✨ Good Luck! ✨";
   }
 
   if(currentMode=="eu"){
@@ -153,7 +196,8 @@ function generateNumbers(){
     displayText=numbers.join(" , ") + "<br><span style='font-size:28px'>✨ Lucky Stars: </span><span style='font-size:32px'>" + stars.join(" , ") + "</span>";
     speakText="Euro Millions，幸運號碼係 " + numbers.join(" , ") + "。幸運星號碼係 " + stars.join(" , ") + "。祝你好運。";
     copyText="🇪🇺 EuroMillions\nMain: " + numbers.join(", ") + "\nStars: " + stars.join(", ");
-    wish="⭐ Star Luck ⭐";
+    wish="⭐ May the Stars be with you ⭐";
+    wishStyle="color:#ffd700;font-size:20px;font-weight:600;font-style:italic;letter-spacing:0.3px;white-space:nowrap";
   }
 
   if(currentMode=="hk"){
@@ -164,14 +208,32 @@ function generateNumbers(){
       special=pickNumbers(1,49)[0];
     }
 
-    displayText=numbers.join(" , ") + "<br><span style='font-size:34px;color:#ff3b30'>🔴 特別號：" + special + "</span>";
-    speakText="六合彩幸運號碼係 " + numbers.join(" , ") + "。特別號係 " + special + "。祝你好運。";
-    copyText="🇭🇰 六合彩\n正選: " + numbers.join(", ") + "\n特別號: " + special;
+    lastHkNumbers=numbers;
+    lastHkSpecial=special;
+    specialVisible=false;
+
     wish="🧧 祝你好運 🧧";
+    speakText="六合彩幸運號碼係 " + numbers.join(" , ") + "。祝你好運。";
+    copyText="🇭🇰 六合彩\n正選: " + numbers.join(", ");
+
+    document.getElementById("numbers").innerHTML=
+      numbers.join(" , ") +
+      "<div id='specialArea' style='display:none'><br><span style='font-size:34px;color:#ff3b30'>🔴 特別號：" + special + "</span></div>" +
+      "<br><br><span style='" + wishStyle + "'>" + wish + "</span>" +
+      "<br><button class='special-toggle' id='specialToggle' onclick='toggleSpecial()'>▼ 顯示特別號（複式參考）</button>";
+
+    navigator.clipboard.writeText(copyText);
+
+    let speech=new SpeechSynthesisUtterance(speakText);
+    speech.lang="zh-HK";
+    speech.rate=1.1;
+    speechSynthesis.speak(speech);
+
+    return;
   }
 
   document.getElementById("numbers").innerHTML=
-    displayText + "<br><br><span style='color:#ffd700;font-size:26px;font-weight:bold;font-style:italic'>" + wish + "</span>";
+    displayText + "<br><br><span style='" + wishStyle + "'>" + wish + "</span>";
 
   navigator.clipboard.writeText(copyText);
 
