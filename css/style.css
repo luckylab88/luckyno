@@ -1,0 +1,101 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#f0f0f0;color:#151515}
+body{font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+.page{width:100vw;min-height:100vh;max-width:760px;margin:0 auto;background:#fbfaf6;padding:30px 58px 22px;overflow:hidden;transition:transform .35s ease}
+.header{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;border-bottom:2px solid #222;padding-bottom:14px;margin-bottom:18px}
+.local-time{min-width:0;flex:1 1 auto}
+.time{font-size:88px;line-height:.88;font-weight:800;letter-spacing:-4px;color:#111}
+.time .colon{color:#777}
+.date-line{margin-top:16px;font-size:22px;line-height:1.1;font-weight:600;white-space:nowrap}
+.date-dot{display:inline-block;margin:0 7px;color:#555}
+#solar-term{color:var(--accent,#151515)}
+.world-time{padding-top:7px;font-size:36px;line-height:1.16;font-weight:800;text-align:left;flex:0 0 205px;color:#111}
+.weather{display:grid;grid-template-columns:minmax(0,1fr) 160px;column-gap:22px;align-items:center;min-height:125px}
+.current{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:24px;align-items:center;min-width:0}
+.weather-icon{width:70px;height:70px;color:var(--accent,#d89a00)}
+.current-text{min-width:0}
+.temp{font-size:80px;line-height:.88;font-weight:800;letter-spacing:-3px;color:var(--accent,#151515)}
+.desc{margin-top:9px;font-size:22px;line-height:1.12}
+.feels{font-weight:700}
+.weather-desc{font-weight:400;color:#333}
+.today{border-left:2px solid #d4d4d4;padding-left:20px;font-size:25px;line-height:1.16;font-weight:800;min-width:0}
+.today #sunset{margin-top:10px;font-size:17px;font-weight:700;white-space:nowrap;color:#333}
+.status{border-top:2px solid #222;border-bottom:1px solid #333;margin:13px 0 9px;padding:8px 0;font-size:25px;line-height:1.05;font-weight:700}
+.status.rain{color:#0d6b91}
+.cards{display:flex;border-bottom:2px solid #222;margin-bottom:9px}
+.card{width:50%;min-height:96px;padding:13px 28px 9px}
+.card+.card{border-left:2px solid #222}
+.label{font-size:18px;font-weight:700;color:#666;letter-spacing:2px}
+.card-main{margin-top:9px;font-size:28px;line-height:1.02;font-weight:800}
+.card-sub{margin-top:7px;font-size:20px;line-height:1.02;font-weight:600}
+.event-card .card-main.hot{color:#9b2e14}
+.forecast h2{font-size:23px;margin:0 0 7px}
+.forecast-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+.forecast-row{display:grid;grid-template-columns:40px 24px 34px 78px 36px;align-items:center;height:27px;font-size:16px;font-weight:800;overflow:visible}
+.forecast-icon{text-align:center;font-size:15px}
+.bar{position:relative;height:8px;border-radius:4px;background:#ddd;overflow:hidden}
+.bar-fill{position:absolute;top:0;height:8px;border-radius:4px;background:#111}
+footer{margin-top:5px;border-top:1px solid #d1d1d1;padding-top:6px;font-size:13px;color:#777}
+footer.stale{font-weight:800;color:#000}
+@media(max-width:520px){
+.page{padding:24px 24px 18px}.header{gap:12px;padding-bottom:12px;margin-bottom:16px}.time{font-size:62px;letter-spacing:-3px}.date-line{font-size:14px;margin-top:14px}.date-dot{margin:0 4px}.world-time{font-size:18px;flex-basis:98px}.weather{grid-template-columns:minmax(0,1fr) 90px;column-gap:12px;min-height:106px}.current{grid-template-columns:46px minmax(0,1fr);column-gap:14px}.weather-icon{width:46px;height:46px}.temp{font-size:52px}.desc{font-size:15px;margin-top:7px}.today{padding-left:12px;font-size:17px}.today #sunset{font-size:11px;margin-top:8px}.status{font-size:17px;padding:7px 0;margin:12px 0 9px}.card{min-height:86px;padding:12px 14px 10px}.label{font-size:12px}.card-main{font-size:19px;margin-top:9px}.card-sub{font-size:14px}.forecast h2{font-size:17px}.forecast-grid{column-gap:18px}.forecast-row{grid-template-columns:30px 18px 25px 64px 29px;height:25px;font-size:12px}footer{font-size:10px}
+}
+
+#event-main.quote{font-size:22px;line-height:1.18;font-weight:600;color:#222;}
+#event-main.rain,#event-main.storm{color:#2276a8;}
+#event-main.snow,#event-main.frost{color:#557a95;}
+#event-main.wind,#event-main.fog{color:#555;}
+#event-main.uv,#event-main.hot{color:#9b2e14;}
+
+/* Official Met Office warning colours */
+.card-main.met-yellow{color:#d6a800}
+.card-main.met-amber{color:#e67e22}
+.card-main.met-red{color:#c62828}
+.event-card.met-red-card{border-left:4px solid #c62828}
+.card-sub.official-warning-detail{
+  font-size:16px;
+  line-height:1.1;
+  max-height:36px;
+  overflow:hidden;
+}
+
+.debug-panel{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px dashed #777;
+  background:#f4f4f4;
+  font-size:12px;
+  line-height:1.45;
+  white-space:pre-line;
+}
+
+.footer-row{
+  margin-top:5px;
+  border-top:1px solid #d1d1d1;
+  padding-top:6px;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:14px;
+  font-size:13px;
+  color:#777;
+  white-space:nowrap;
+}
+.footer-row #updated{
+  margin:0;
+  border:0;
+  padding:0;
+  font-size:inherit;
+  color:inherit;
+}
+.tracker-price{margin-left:auto;text-align:right;color:#333}
+.tracker-price .tracker-low{color:#2e7d32;font-weight:800}
+.tracker-price .tracker-mid{color:#222;font-weight:400}
+.tracker-price .tracker-high{color:#c46a14;font-weight:500}
+.tracker-price .tracker-very-high{color:#b22222;font-weight:800}
+.tracker-price .tracker-save{color:#2e7d32;font-weight:700;margin-left:5px}
+.tracker-price .tracker-arrow{padding:0 3px;color:#777}
+@media(max-width:520px){
+  .footer-row{font-size:10px;gap:8px}
+  .tracker-price .tracker-label{display:none}
+}
